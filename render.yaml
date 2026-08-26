@@ -1,0 +1,24 @@
+# Render Blueprint specification for Dama Game
+services:
+  # FastAPI WebSocket Backend Service
+  - type: web
+    name: dama-backend
+    env: python
+    region: oregon
+    buildCommand: pip install -r requirements.txt || pip install fastapi[standard] websockets uvicorn
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    rootDir: back_end
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+
+  # Static Site Frontend
+  - type: web
+    name: dama-frontend
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    rootDir: front_end
+    envVars:
+      - key: NODE_VERSION
+        value: 20.0.0
