@@ -72,9 +72,7 @@ const initialState: BoardState = {
     showHints: true,
 
     isOnlineMode: false,
-    serverUrl: typeof window !== "undefined" 
-        ? `${window.location.protocol === "https:" ? "https:" : "http:"}//${window.location.hostname}:8000`
-        : "http://localhost:8000",
+    serverUrl: (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_BACKEND_URL) || "https://dama-game-s7rx.onrender.com",
     roomId: "ROOM-1",
     clientId: getClientId(),
     clientRole: null,
